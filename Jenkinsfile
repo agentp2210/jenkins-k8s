@@ -20,7 +20,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build("agentp2210/train-schedule")
+                    def app = docker.build("agentp2210/train-schedule")
                     app.inside {
                         // sh 'echo $(curl localhost:8080)'
                         sh 'echo Hello World'
