@@ -9,7 +9,8 @@ pipeline {
                 echo 'Running build automation'
                 sh 'npm install'
                 sh 'npm test'
-                sh 'mkdir -p dist && zip -r dist/trainSchedule.zip ./*'
+                sh 'mkdir -p dist'
+                sh 'zip -r dist/trainSchedule.zip ./*'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
@@ -21,7 +22,8 @@ pipeline {
                 script {
                     app = docker.build('agentp2210/train-schedule')
                     app.inside {
-                        sh 'echo $(curl localhost:8080)'
+                        // sh 'echo $(curl localhost:8080)'
+                        sh 'echo Hello World'
                     }
                 }
             }
@@ -42,6 +44,9 @@ pipeline {
         stage('DeployToProduction') {
             when {
                 branch 'main'
+            }
+            agent {
+                label 'k8s'
             }
             steps {
                 input 'Does the staging environment look OK?'
