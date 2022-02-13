@@ -19,7 +19,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build(DOCKER_IMAGE_NAME)
+                    app = docker.build('agentp2210/train-schedule')
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
                     }
@@ -49,7 +49,7 @@ pipeline {
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                     configs: 'train-schedule-kube.yml',
-                    enableConfigSubstitution: true
+                    enableConfigSubstitution: true      // Allow k8s plugin to replace the variable in the train-schedule-kube.yml with the actual values
                 )
             }
         }
