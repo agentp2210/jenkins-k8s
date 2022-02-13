@@ -9,7 +9,7 @@ pipeline {
                 echo 'Running build automation'
                 sh 'npm install'
                 sh 'npm test'
-                sh 'mkdir dist && zip -r dist/trainSchedule.zip ./*'
+                sh 'mkdir -p dist && zip -r dist/trainSchedule.zip ./*'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
