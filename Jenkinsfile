@@ -18,6 +18,8 @@ pipeline {
             when {
                 branch 'main'
             }
+            agent {
+                label 'k8s'
             steps {
                 script {
                     def app = docker.build("agentp2210/train-schedule")
@@ -35,7 +37,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
-                        app.push("${env.BUILD_NUMBER}")
+                        app.push("${env.BUILD_ID}")
                         app.push("latest")
                     }
                 }
