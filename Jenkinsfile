@@ -9,9 +9,9 @@ pipeline {
                 echo 'Running build automation'
                 sh 'npm install'
                 sh 'npm test'
-                sh 'mkdir -p dist'
-                sh 'zip -r dist/trainSchedule.zip ./*'
-                archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+                // sh 'mkdir -p dist'
+                // sh 'zip -r dist/trainSchedule.zip ./*'
+                // archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
         stage('Build Docker Image') {
